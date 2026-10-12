@@ -3,7 +3,7 @@
 #include "renderSystem.h"
 #include "testScene.h"
 #include "logSystem.h"
-#include "geometry/matrix.h"
+#include "geometry/matrix2D.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
@@ -75,8 +75,6 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
     else logSystem->log('F', "SDL_Init", "Transfer buffer creation failed.");
     if (graphicsPipeline != nullptr && graphicsPipeline != NULL) logSystem->log('D', "SDL_Init", "Graphics pipeline creation successful.");
     else logSystem->log('F', "SDL_Init", "Graphics pipeline creation failed.");
-
-    Matrix m(4,4);
 
     return SDL_APP_CONTINUE;
 }

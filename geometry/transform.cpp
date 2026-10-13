@@ -8,7 +8,7 @@
 //----------------------------------------------------------------
 
 #include "transform.h"
-
+#include <cmath>
 
 
 // Deconstructor
@@ -67,13 +67,37 @@ void Transform::setToScale(Vector3 scale)
 }
 
 // Sets to a rotate transform matrix
-void Transform::setToRotateDeg(float deg)
+void Transform::setToRotateRad(unsigned axis, float rad)
 {
-    float angle = deg * 180/3.1415926;
+    float cosAngle = cosf(rad);
+    float sinAngle = sinf(rad);
+    
+    if (axis == 0)
+    {
+        setVal(1,1,cosAngle);
+        setVal(2,2,cosAngle);
+        setVal(1,2,-sinAngle);
+        setVal(2,1,sinAngle);
+    }
+    else if (axis == 1)
+    {
+        setVal(0,0,cosAngle);
+        setVal(2,2,cosAngle);
+        setVal(0,2,sinAngle);
+        setVal(2,0,-sinAngle);
+    }
+    else if (axis == 2)
+    {
+        setVal(0,0,cosAngle);
+        setVal(1,1,cosAngle);
+        setVal(0,1,-sinAngle);
+        setVal(1,0,sinAngle);
+    }
 }
-void Transform::setToRotateRad(float rad)
+void Transform::setToRotateDeg(unsigned axis, float deg)
 {
-
+    float angle = deg * 180/3.1415926535;
+    setToRotateRad(axis, angle);
 }
 
 // Returns 3D vector representing (x,y,z) coordinates

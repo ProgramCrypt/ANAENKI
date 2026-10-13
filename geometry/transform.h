@@ -36,9 +36,9 @@ class Transform : public Matrix2D
     // Sets to a scale transform matrix
     void setToScale(Vector3 scale);
 
-    // Sets to a rotate transform matrix
-    void setToRotateDeg(float deg);
-    void setToRotateRad(float rad);
+    // Sets to a rotate transform matrix (axis x=1, y=2, z=3)
+    void setToRotateRad(unsigned axis, float rad);
+    void setToRotateDeg(unsigned axis, float deg);
 
     // Returns 3D vector representing (x,y,z) coordinates
     Vector3 position();

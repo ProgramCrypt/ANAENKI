@@ -1,0 +1,11 @@
+# CMake build folder
+build/
+
+# Log file
+Log.log
+
+
+# IDE / Operating System files
+.vscode/
+.DS_Store
+Thumbs.db

@@ -10,8 +10,8 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-#include "matrix2D.h"
-#include "vectorF.h"
+#include "geometry/matrix2D.h"
+#include "geometry/vectorF.h"
 
 class Transform : public Matrix2D
 {
@@ -41,7 +41,10 @@ class Transform : public Matrix2D
     void setToRotateDeg(unsigned axis, float deg);
 
     // Returns 3D vector representing (x,y,z) coordinates
-    Vector3 position();
+    Vector3 position3D();
+
+    // Returns 2D vector representing (x,y) coordinates
+    Vector2 position2D();
 
     private:
     //////// Private Functions ////////

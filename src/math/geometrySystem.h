@@ -1,7 +1,7 @@
 #ifndef NEWCLASS_H
 #define NEWCLASS_H
 
-#include "globals.h"
+#include "core/globals.h"
 
 class newClass
 {

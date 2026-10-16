@@ -7,7 +7,7 @@
 //
 //----------------------------------------------------------------
 
-#include "transform.h"
+#include "geometry/transform.h"
 #include <cmath>
 
 
@@ -101,7 +101,13 @@ void Transform::setToRotateDeg(unsigned axis, float deg)
 }
 
 // Returns 3D vector representing (x,y,z) coordinates
-Vector3 Transform::position()
+Vector3 Transform::position3D()
 {
+    return Vector3{(*this)[0][0], (*this)[1][1], (*this)[2][2]};
+}
 
+// Returns 2D vector representing (x,y) coordinates
+Vector2 Transform::position2D()
+{
+    return Vector2{(*this)[0][0], (*this)[1][1]};
 }

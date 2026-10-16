@@ -1,31 +1,26 @@
 {
+    "version": "0.2.0",
     "configurations": [
         {
-            "name": "C/C++: g++.exe build and debug active file",
+            "name": "Launch ANAENKIEngine",
             "type": "cppdbg",
             "request": "launch",
-            "program": "D:/DdriveDocuments/ANAENKI_ALIAS/main.exe",
+
+            "program": "${command:cmake.launchTargetPath}",
+
             "args": [],
+
             "stopAtEntry": false,
-            "cwd": "D:/DdriveDocuments/ANAENKI_ALIAS",
+
+            "cwd": "${workspaceFolder}",
+
             "environment": [],
+
             "externalConsole": false,
+
             "MIMode": "gdb",
-            "miDebuggerPath": "gdb.exe",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                },
-                {
-                    "description": "Set Disassembly Flavor to Intel",
-                    "text": "-gdb-set disassembly-flavor intel",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "Build ANÆNKI"
+
+            "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe"
         }
-    ],
-    "version": "2.0.0"
+    ]
 }

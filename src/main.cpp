@@ -1,9 +1,9 @@
 #define SDL_MAIN_USE_CALLBACKS 1 /* use the callbacks instead of main() */
-#include "globals.h"
-#include "renderSystem.h"
-#include "testScene.h"
-#include "logSystem.h"
-#include "geometry/matrix2D.h"
+#include "core/globals.h"
+#include "rendering/renderSystem.h"
+#include "scene/testScene.h"
+#include "core/logSystem.h"
+#include "math/matrix2D.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
@@ -50,8 +50,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
     SDL_ClaimWindowForGPUDevice(device, window);
 
     // creates vertex and fragment shaders
-    SDL_GPUShader* vertexShader = renderSystem::createVertexShader("shaders/vertex.spv", device);
-    SDL_GPUShader* fragmentShader = renderSystem::createFragmentShader("shaders/fragment.spv", device);
+    SDL_GPUShader* vertexShader = renderSystem::createVertexShader("src/rendering/shaders/vertex.spv", device);
+    SDL_GPUShader* fragmentShader = renderSystem::createFragmentShader("src/rendering/shaders/fragment.spv", device);
 
     // creates graphics pipeline
     graphicsPipeline = renderSystem::createGPUGraphicsPipeline(vertexShader, fragmentShader, device, window);

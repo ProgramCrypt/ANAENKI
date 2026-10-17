@@ -1,15 +1,15 @@
-#ifndef LOGSYSTEM_H
-#define LOGSYSTEM_H
+#ifndef LOGMANAGER_H
+#define LOGMANAGER_H
 
 #include <unordered_map>
 #include <string>
 
-class LogSystem
+class LogManager
 {
     public:
     // Constructors
-    LogSystem();
-    LogSystem(bool T, bool D, bool I, bool W, bool E, bool F);
+    LogManager();
+    LogManager(bool T, bool D, bool I, bool W, bool E, bool F);
 
     // Directly prints a char string or an array of char strings to output terminal
     void print(const char* str);
@@ -35,4 +35,4 @@ class LogSystem
     std::unordered_map<std::string, bool> logLevels;
 };
 
-#endif // LOGSYSTEM_H
+#endif // LOGMANAGER_H

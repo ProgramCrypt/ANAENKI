@@ -1,5 +1,5 @@
 #include <SDL3/SDL.h>
-#include "rendering/renderSystem.h"
+#include "rendering/renderManager.h"
 
 namespace renderSystem
 {

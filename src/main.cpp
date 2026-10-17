@@ -1,14 +1,14 @@
 #define SDL_MAIN_USE_CALLBACKS 1 /* use the callbacks instead of main() */
 #include "core/globals.h"
-#include "rendering/renderSystem.h"
+#include "rendering/renderManager.h"
 #include "scene/testScene.h"
-#include "core/logSystem.h"
+#include "core/logManager.h"
 #include "math/matrix2D.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
 // Engine framework pointers
-LogSystem* logSystem;
+LogManager* logManager;
 
 // Rendering pointers
 SDL_Window* window;
@@ -24,8 +24,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
 	// Construct Engine Framework Class Objects:
 	//--------------------------------------------------------------------------
 
-    logSystem = new LogSystem;
-    logSystem->setLogLevel("TRACE", true);
+    logManager = new LogManager;
+    logManager->setLogLevel("TRACE", true);
 
     //--------------------------------------------------------------------------
 	// Rendering Setup:
@@ -50,31 +50,31 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
     SDL_ClaimWindowForGPUDevice(device, window);
 
     // creates vertex and fragment shaders
-    SDL_GPUShader* vertexShader = renderSystem::createVertexShader("src/rendering/shaders/vertex.spv", device);
-    SDL_GPUShader* fragmentShader = renderSystem::createFragmentShader("src/rendering/shaders/fragment.spv", device);
+    SDL_GPUShader* vertexShader = renderManager::createVertexShader("src/rendering/shaders/vertex.spv", device);
+    SDL_GPUShader* fragmentShader = renderManager::createFragmentShader("src/rendering/shaders/fragment.spv", device);
 
     // creates graphics pipeline
-    graphicsPipeline = renderSystem::createGPUGraphicsPipeline(vertexShader, fragmentShader, device, window);
+    graphicsPipeline = renderManager::createGPUGraphicsPipeline(vertexShader, fragmentShader, device, window);
 
     // creates vertex and transfer buffers
-    vertexBuffer = renderSystem::createVertexBuffer(sizeof(testTriangle), device);
-    transferBuffer = renderSystem::createTransferBuffer(sizeof(testTriangle), device);
-    renderSystem::fillTransferBuffer(transferBuffer, testTriangle, sizeof(testTriangle), device);
+    vertexBuffer = renderManager::createVertexBuffer(sizeof(testTriangle), device);
+    transferBuffer = renderManager::createTransferBuffer(sizeof(testTriangle), device);
+    renderManager::fillTransferBuffer(transferBuffer, testTriangle, sizeof(testTriangle), device);
 
     // performs copy pass
-    renderSystem::bufferCopyPass(transferBuffer, vertexBuffer, sizeof(testTriangle), device);
+    renderManager::bufferCopyPass(transferBuffer, vertexBuffer, sizeof(testTriangle), device);
 
     // Logs creation of rendering components
-    if (window != nullptr && window != NULL) logSystem->log('D', "SDL_Init", "Window creation successful.");
-    else logSystem->log('F', "SDL_Init", "Window creation failed.");
-    if (device != nullptr && device != NULL) logSystem->log('D', "SDL_Init", "Device creation successful.");
-    else logSystem->log('F', "SDL_Init", "Device creation failed.");
-    if (vertexBuffer != nullptr && vertexBuffer != NULL) logSystem->log('D', "SDL_Init", "Vertex buffer creation successful.");
-    else logSystem->log('F', "SDL_Init", "Vertex buffer creation failed.");
-    if (transferBuffer != nullptr && transferBuffer != NULL) logSystem->log('D', "SDL_Init", "Transfer buffer creation successful.");
-    else logSystem->log('F', "SDL_Init", "Transfer buffer creation failed.");
-    if (graphicsPipeline != nullptr && graphicsPipeline != NULL) logSystem->log('D', "SDL_Init", "Graphics pipeline creation successful.");
-    else logSystem->log('F', "SDL_Init", "Graphics pipeline creation failed.");
+    if (window != nullptr && window != NULL) logManager->log('D', "SDL_Init", "Window creation successful.");
+    else logManager->log('F', "SDL_Init", "Window creation failed.");
+    if (device != nullptr && device != NULL) logManager->log('D', "SDL_Init", "Device creation successful.");
+    else logManager->log('F', "SDL_Init", "Device creation failed.");
+    if (vertexBuffer != nullptr && vertexBuffer != NULL) logManager->log('D', "SDL_Init", "Vertex buffer creation successful.");
+    else logManager->log('F', "SDL_Init", "Vertex buffer creation failed.");
+    if (transferBuffer != nullptr && transferBuffer != NULL) logManager->log('D', "SDL_Init", "Transfer buffer creation successful.");
+    else logManager->log('F', "SDL_Init", "Transfer buffer creation failed.");
+    if (graphicsPipeline != nullptr && graphicsPipeline != NULL) logManager->log('D', "SDL_Init", "Graphics pipeline creation successful.");
+    else logManager->log('F', "SDL_Init", "Graphics pipeline creation failed.");
 
     return SDL_APP_CONTINUE;
 }
@@ -85,7 +85,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     //--------------------------------------------------------------------------
 	// Rendering:
 	//--------------------------------------------------------------------------
-    logSystem->log('T', "SDL_AppIterate", "Beginning Rendering.");
+    logManager->log('T', "SDL_AppIterate", "Beginning Rendering.");
 
     // acquires the command buffer
     SDL_GPUCommandBuffer* commandBuffer = SDL_AcquireGPUCommandBuffer(device);
@@ -98,7 +98,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     // ends the frame early if a swapchain texture is not available
     if (swapchainTexture == NULL)
     {
-        logSystem->log('E', "SDL_AppIterate", "SwapchainTexture get failed.");
+        logManager->log('E', "SDL_AppIterate", "SwapchainTexture get failed.");
 
         // you must always submit the command buffer
         SDL_SubmitGPUCommandBuffer(commandBuffer);
@@ -114,7 +114,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
 
     // begins a render pass and binds the pipeline
     SDL_GPURenderPass* renderPass = SDL_BeginGPURenderPass(commandBuffer, &colorTargetInfo, 1, NULL);
-    if (renderPass == NULL || renderPass == nullptr) logSystem->log('E', "SDL_AppIterate", "renderPass object creation failed.");
+    if (renderPass == NULL || renderPass == nullptr) logManager->log('E', "SDL_AppIterate", "renderPass object creation failed.");
     SDL_BindGPUGraphicsPipeline(renderPass, graphicsPipeline);
 
     // binds the vertex buffer
@@ -172,7 +172,7 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result)
 	// Deallocate Engine Framework Class Objects:
 	//--------------------------------------------------------------------------
 
-    delete logSystem;
+    delete logManager;
 
     //--------------------------------------------------------------------------
 	// Deallocate Render Objects:

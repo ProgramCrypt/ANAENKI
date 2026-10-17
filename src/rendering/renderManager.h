@@ -1,5 +1,5 @@
-#ifndef RENDERSYSTEM_H
-#define RENDERSYSTEM_H
+#ifndef RENDERMANAGER_H
+#define RENDERMANAGER_H
 
 #include <SDL3/SDL.h>
 
@@ -9,7 +9,7 @@ struct vertex
     float r, g, b, a;   // color and alpha
 };
 
-namespace renderSystem
+namespace renderManager
 {
     // Creates a vertex buffer for the GPU
     SDL_GPUBuffer* createVertexBuffer(size_t dataSize, SDL_GPUDevice* device);
@@ -33,4 +33,4 @@ namespace renderSystem
     SDL_GPUGraphicsPipeline* createGPUGraphicsPipeline(SDL_GPUShader* vertexShader, SDL_GPUShader* fragmentShader, SDL_GPUDevice* device, SDL_Window* window);
 }
 
-#endif // RENDERSYSTEM_H
+#endif // RENDERMANAGER_H

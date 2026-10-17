@@ -1,4 +1,4 @@
-#include "rendering/renderSystem.h"
+#include "rendering/renderManager.h"
 
 
 // test triangle to render

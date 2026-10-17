@@ -1,11 +1,11 @@
-#include "core/logSystem.h"
+#include "core/logManager.h"
 #include <iostream>
 #include <fstream>
 #include <chrono>
 #include <ctime>
 
 // Constructors
-LogSystem::LogSystem()
+LogManager::LogManager()
 {
     // default log level states
     logLevels["TRACE"] = false;
@@ -22,7 +22,7 @@ LogSystem::LogSystem()
     fputs(std::ctime(&currTime), file);
     fclose(file);
 }
-LogSystem::LogSystem(bool T, bool D, bool I, bool W, bool E, bool F)
+LogManager::LogManager(bool T, bool D, bool I, bool W, bool E, bool F)
 {
     // default log level states
     logLevels["TRACE"] = T;
@@ -41,11 +41,11 @@ LogSystem::LogSystem(bool T, bool D, bool I, bool W, bool E, bool F)
 }
 
 // Directly prints a char string or an array of char strings to output terminal
-void LogSystem::print(const char* str)
+void LogManager::print(const char* str)
 {
     std::cout << str << std::endl;
 }
-void LogSystem::print(const char** strArr[])
+void LogManager::print(const char** strArr[])
 {
     while (*strArr != nullptr)
     {
@@ -55,7 +55,7 @@ void LogSystem::print(const char** strArr[])
     }
     std::cout << std::endl;
 }
-void LogSystem::print(std::string& str)
+void LogManager::print(std::string& str)
 {
     std::cout << str << std::endl;
 }
@@ -68,7 +68,7 @@ void LogSystem::print(std::string& str)
 // WARN (W): Unexpected events or states that could cause issues
 // ERROR (E): Issues that are causing some functionality to not work, but not a full program crash
 // FATAL (F): Issues that cause the program to fail entirely
-void LogSystem::log(const char level, const char* source, const char* msg)
+void LogManager::log(const char level, const char* source, const char* msg)
 {
     std::string str;
 
@@ -119,7 +119,7 @@ void LogSystem::log(const char level, const char* source, const char* msg)
 }
 
 // Sets state of log level
-void LogSystem::setLogLevel(const char* level, bool state)
+void LogManager::setLogLevel(const char* level, bool state)
 {
     logLevels[level] = state;
 }

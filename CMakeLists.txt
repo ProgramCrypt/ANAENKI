@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(Math
 
-    src/math/geometrySystem.cpp
+    src/math/geometryUtilities.cpp
     src/math/matrix2D.cpp
     src/math/transform.cpp
 )
@@ -26,7 +26,7 @@ target_include_directories(Math PUBLIC
 
 add_library(Core
 
-    src/core/logSystem.cpp
+    src/core/logManager.cpp
 )
 
 target_include_directories(Core PUBLIC
@@ -39,7 +39,7 @@ target_include_directories(Core PUBLIC
 
 add_library(Rendering
 
-    src/rendering/renderSystem.cpp
+    src/rendering/renderManager.cpp
 )
 
 target_include_directories(Rendering PUBLIC

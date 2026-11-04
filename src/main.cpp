@@ -187,3 +187,6 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result)
     // destroys the window
     SDL_DestroyWindow(window);
 }
+
+
+// Longing for the ephemeral qualia of being

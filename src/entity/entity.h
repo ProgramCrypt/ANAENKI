@@ -15,6 +15,8 @@
 
 #include "component/component.h"
 
+// Forward declarations
+class Stream;
 
 class Entity
 {

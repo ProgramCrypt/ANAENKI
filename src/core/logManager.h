@@ -12,9 +12,9 @@ class LogManager
     LogManager(bool T, bool D, bool I, bool W, bool E, bool F);
 
     // Directly prints a char string or an array of char strings to output terminal
-    void print(const char* str);
-    void print(const char** strArr[]);
-    void print(std::string& str);
+    static void print(const char* str);
+    static void print(const char** strArr[]);
+    static void print(std::string& str);
 
     // Logs messages to terminal and log file
     // Log message levels:
@@ -24,15 +24,15 @@ class LogManager
     // WARN (W): Unexpected events or states that could cause issues
     // ERROR (E): Issues that are causing some functionality to not work, but not a full program crash
     // FATAL (F): Issues that cause the program to fail entirely
-    void log(const char level, const char* source, const char* msg);
+    static void log(const char level, const char* source, const char* msg);
 
     // Sets state of log level
-    void setLogLevel(const char* level, bool state);
+    static void setLogLevel(const char* level, bool state);
 
     private:
 
     // Active log message levels
-    std::unordered_map<std::string, bool> logLevels;
+    static std::unordered_map<std::string, bool> logLevels;
 };
 
 #endif // LOGMANAGER_H

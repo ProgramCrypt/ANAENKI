@@ -6,6 +6,12 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #
+# Extern Library
+#
+
+
+
+#
 # Math
 #
 
@@ -21,16 +27,41 @@ target_include_directories(Math PUBLIC
 )
 
 #
+# Entity
+#
+
+add_library(Entity
+
+    src/entity/entity.cpp
+    src/entity/component/component.cpp
+    src/entity/system/system.cpp
+)
+
+target_include_directories(Entity PUBLIC
+    ${PROJECT_SOURCE_DIR}/src
+)
+
+target_link_libraries(Entity PUBLIC
+    Math
+)
+
+#
 # Core
 #
 
 add_library(Core
 
     src/core/logManager.cpp
+    src/core/streamManager.cpp
 )
 
 target_include_directories(Core PUBLIC
     ${PROJECT_SOURCE_DIR}/src
+    ${PROJECT_SOURCE_DIR}/lib
+)
+
+target_link_libraries(Core PUBLIC
+    Entity
 )
 
 #
@@ -85,6 +116,7 @@ add_executable(ANAENKIEngine
 
 target_include_directories(ANAENKIEngine PRIVATE
     ${PROJECT_SOURCE_DIR}/src
+    ${PROJECT_SOURCE_DIR}/lib
     $ENV{SDL_INCLUDE_PATH}
 )
 
@@ -98,6 +130,7 @@ target_link_libraries(ANAENKIEngine PRIVATE
     Math
     Rendering
     Scene
+    Entity
 
     SDL3
     SDL3_ttf
